@@ -7,73 +7,99 @@
   </head>
   <body>
     <script>
-      //   debugger;
+      // Selection const's get the inputs from both players
+      // Called in playRouond switch-case to compare
+      // Parameter in playRound
 
       let computerScore = 0;
-      let humanChoice = 0;
+      let humanScore = 0;
+      playGame(5);
 
-      getComputerChoice();
-      getHumanChoice();
-      playRound();
+      // Counts the number of rounds
+      // Returns score
+      function playGame(rounds) {
+        for (let i = 0; i < rounds; i++) {
+            console.log("in for loop");
+            playRound();
+        }
+        return;
+      }
 
-      function playRound(humanChoice, computerChoice) {
+      function getGameScore() {
+         if(computerScore > humanScore) {
+            console.log("Computer wins");
+         } else if (humanScore > computerScore) {
+            console.log("You win");
+         } else {
+            console.log("Draw");
+         }
+      }
+
+      //  Calls choices and selections and comparing the two and returning a result of the round
+      function playRound() {
+        const computerSelection = getComputerChoice();
+        const humanSelection = getHumanChoice();
         switch (humanSelection) {
           case "rock":
-                switch(computerSelection){
-                    case "rock":
-                        console.log("Tie");
-                        break;
-                    case "scissors":
-                        humanScore++;
-                        console.log("You win");
-                        break;
-                    case "paper":
-                        computerScore++;
-                        console.log("Computer win");
-                        break;
-                }
+            switch (computerSelection) {
+              case "rock":
+                console.log("Tie");
+                break;
+              case "scissors":
+                humanScore++;
+                console.log("You win");
+                break;
+              case "paper":
+                computerScore++;
+                console.log("Computer win");
+                break;
+            }
             break;
 
           case "paper":
-                switch(computerSelection){
-                    case "rock":
-                        humanScore++;
-                        console.log("You win");
-                        break;
-                    case "scissors":
-                        computerScore++;
-                        console.log("Computer win");
-                        break;
-                    case "paper":
-                        console.log("Tie");
-                        break;
-                }
+            switch (computerSelection) {
+              case "rock":
+                humanScore++;
+                console.log("You win");
+                break;
+              case "scissors":
+                computerScore++;
+                console.log("Computer win");
+                break;
+              case "paper":
+                console.log("Tie");
+                break;
+            }
             break;
 
           case "scissors":
-              switch(computerSelection){
-                    case "rock":
-                        computerScore++;
-                        console.log("Computer win");
-                        break;
-                    case "scissors":
-                        console.log("Tie");
-                        break;
-                    case "paper":
-                        humanScore++;
-                        console.log("You win");
-                        break;
-                }
+            switch (computerSelection) {
+              case "rock":
+                computerScore++;
+                console.log("Computer win");
+                break;
+              case "scissors":
+                console.log("Tie");
+                break;
+              case "paper":
+                humanScore++;
+                console.log("You win");
+                break;
+            }
             break;
         }
+        return;
       }
 
+      // Function that reads human input and is called by playRound to compare to computerChoice
       function getHumanChoice() {
         const humanChoice = prompt("Choose rock, paper, scissors");
         console.log(humanChoice);
         return humanChoice;
       }
 
+      // Generates computer's choice based off the random number (0-2) and the index of the array
+      // Called by playRound to compare to humanChoice
       function getComputerChoice() {
         const randomNum = getRandomInt(0, 3);
         const choices = ["rock", "paper", "scissors"];
@@ -82,6 +108,7 @@
         return choices[randomNum];
       }
 
+      // function that generates the random number and is called by getComputerChoice
       function getRandomInt(min, max) {
         const minCeiled = Math.ceil(min);
         const maxFloored = Math.min(max);
